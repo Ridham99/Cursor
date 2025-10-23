@@ -94,7 +94,7 @@ To customize the website for your needs:
 
 ## 📞 Contact Information
 
-- **Phone**: +1 (555) 123-4567
+- **Phone**: +91 7986713605
 - **Email**: info@digitalexperthub.com
 - **Address**: 123 Business Ave, Suite 100, City, State 12345
 
