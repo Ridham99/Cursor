@@ -795,7 +795,10 @@ body {
     transition: all 0.3s ease;
     border: 1px solid rgba(226, 232, 240, 0.5);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
 }
 
 .benefit-card::before {
@@ -854,6 +857,12 @@ body {
     line-height: 1;
 }
 
+.benefit-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .benefit-content h3 {
     font-size: 1.4rem;
     font-weight: 700;
@@ -864,9 +873,12 @@ body {
 
 .benefit-content p {
     color: #64748b;
-    line-height: 1.7;
-    font-size: 1rem;
+    line-height: 1.6;
+    font-size: 0.95rem;
     margin-bottom: 1.5rem;
+    height: auto;
+    overflow: visible;
+    word-wrap: break-word;
 }
 
 .benefit-features {
@@ -1691,6 +1703,7 @@ body {
 
     .benefit-card {
         padding: 2rem;
+        min-height: auto;
     }
     
     .benefit-header {
@@ -1701,6 +1714,11 @@ body {
     
     .benefit-features {
         justify-content: center;
+    }
+    
+    .benefit-content p {
+        font-size: 0.9rem;
+        line-height: 1.5;
     }
 
     .section-header h2 {
