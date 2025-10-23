@@ -122,8 +122,8 @@ const observer = new IntersectionObserver((entries) => {
 // Observe elements for animation
 document.querySelectorAll('.service-card, .diff-card, .industry-item, .benefit-item, .why-item, .process-step').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    el.style.transform = 'translateY(40px)';
+    el.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
     observer.observe(el);
 });
 
@@ -148,6 +148,13 @@ function animateCounter(element, target, duration = 2000) {
 // Add loading animation
 window.addEventListener('load', () => {
     document.body.style.opacity = '1';
+    document.body.style.transition = 'opacity 0.5s ease';
+    
+    // Add staggered animation to cards
+    const cards = document.querySelectorAll('.service-card, .diff-card, .industry-item, .benefit-item, .why-item');
+    cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
 });
 
 // Initialize page
@@ -164,7 +171,29 @@ document.addEventListener('DOMContentLoaded', () => {
             item.classList.add('active');
         }
     });
+    
+    // Add typing effect to hero title
+    const heroTitle = document.querySelector('.hero-content h1');
+    if (heroTitle) {
+        const originalText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        typeWriter(heroTitle, originalText, 30);
+    }
+    
+    // Add parallax effect to hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+    });
 });
+
+// Add scroll indicator
+const scrollIndicator = document.createElement('div');
+scrollIndicator.className = 'scroll-indicator';
+document.body.appendChild(scrollIndicator);
 
 // Add scroll to top functionality
 const scrollToTopBtn = document.createElement('button');
@@ -172,26 +201,34 @@ scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
 scrollToTopBtn.className = 'scroll-to-top';
 scrollToTopBtn.style.cssText = `
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: #2563eb;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
     color: white;
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 1000;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    backdrop-filter: blur(10px);
 `;
 
 document.body.appendChild(scrollToTopBtn);
 
 window.addEventListener('scroll', () => {
+    // Scroll indicator
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.body.offsetHeight - window.innerHeight;
+    const scrollPercent = scrollTop / docHeight;
+    scrollIndicator.style.transform = `scaleX(${scrollPercent})`;
+    
+    // Scroll to top button
     if (window.scrollY > 300) {
         scrollToTopBtn.style.opacity = '1';
         scrollToTopBtn.style.visibility = 'visible';
@@ -206,6 +243,17 @@ scrollToTopBtn.addEventListener('click', () => {
         top: 0,
         behavior: 'smooth'
     });
+});
+
+// Add hover effects for scroll to top button
+scrollToTopBtn.addEventListener('mouseenter', function() {
+    this.style.transform = 'translateY(-3px) scale(1.1)';
+    this.style.boxShadow = '0 12px 35px rgba(59, 130, 246, 0.6)';
+});
+
+scrollToTopBtn.addEventListener('mouseleave', function() {
+    this.style.transform = 'translateY(0) scale(1)';
+    this.style.boxShadow = '0 8px 25px rgba(59, 130, 246, 0.4)';
 });
 
 // Add hover effects for interactive elements
